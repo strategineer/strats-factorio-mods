@@ -1,7 +1,16 @@
-function config(name)
-    return settings.startup['strats:sounds-'..name].value
+function config_key(name)
+    return 'strats:sounds-'..name
     end
+
+function config(name)
+    return settings.startup[config_key(name)].value
+    end
+
     
+function player_config(player_index, name)
+    return settings.get_player_settings(player_index)[config_key(name)].value
+    end
+
 function sound(category, name)
     return '__strats-sounds__/sound/'..category..'/'..name..'.ogg'
     end
