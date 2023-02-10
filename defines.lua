@@ -10,7 +10,7 @@ function sound_key(category, name)
     return 'strats:sounds-'..category..'.'..name
     end
 
-function create_sound(category, name)
+function create_sound_prototype(category, name)
     return {
         type = 'sound',
         name = sound_key(category, name),
@@ -27,3 +27,11 @@ function try_play_sound_for(player, category, name)
     end
 end
   
+function try_play_sound(category, name)
+    local k = sound_key(category, name)
+    if game.is_valid_sound_path(k) then
+        game.play_sound({path=k})
+    else
+        game.print("failed to play sound ["..category..'/'..name.."]. Please let strategineer know about this.")
+    end
+end
