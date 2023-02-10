@@ -14,3 +14,13 @@ script.on_event(defines.events.on_player_respawned,
   end
 )
 
+script.on_event(defines.events.on_player_driving_changed_state,
+  function(event)
+    local player = game.get_player(event.player_index)
+    if player.character.vehicle then
+      try_play_sound_for(player, "arnold", "get_to_da_choppa")
+    end
+  end
+)
+
+  -- on_player_joined_game ?
