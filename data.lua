@@ -1,17 +1,23 @@
---data.lua
+-- data.lua
 require('defines')
 
-data:extend({
-  create_sound_prototype("arnold", "hasta_la_vista"),
-  create_sound_prototype("arnold", "i_am_back"),
-  create_sound_prototype("arnold", "get_to_da_choppa"),
-  create_sound_prototype("arnold", "as_satisfying_as"),
-  create_sound_prototype("arnold", "cool"),
-  create_sound_prototype("arnold", "ill_be_back1"),
-  create_sound_prototype("arnold", "you_belong_to_me_there_is_no_bathroom"),
-  {
-    type = 'sound',
-    name = sound_key("arnold", "hahaha"),
-    variations = {{filename = sound("arnold", "hahaha0")},{filename = sound("arnold", "hahaha1")},{filename = sound("arnold", "hahaha2")},{filename = sound("arnold", "hahaha3")}},
-  },
-})
+for voice, voice_data in pairs(VOICES) do
+    for k, v in pairs(voice_data) do
+        if k ~= 'sounds' then goto continue end
+        for bark_name, extra in pairs(v) do
+            p = nil
+            log(bark_name)
+            if extra and extra["variations"] then
+                variations = extra["variations"]
+                p = {
+                    create_sound_prototype_with_variations(voice, bark_name,
+                                                           variations)
+                }
+            else
+                p = {create_sound_prototype(voice, bark_name)}
+            end
+            if p then data:extend(p) end
+        end
+        ::continue::
+    end
+end
