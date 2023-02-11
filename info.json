@@ -1,11 +1,11 @@
 {
-    "name": "strats-sounds",
+    "name": "strats-voicepacks",
     "version": "0.1.0",
-    "title": "Strat's Soundpack",
+    "title": "Strat's Voicepacks",
     "author": "strategineer",
     "factorio_version": "1.1",
     "dependencies": [
         "base >= 1.1"
     ],
-    "description": "This mod adds some sounds. Meant for personal use (mostly)."
+    "description": "This mod allows for the use of voice packs to make your little Factorioman express themselves verbally in a unique way for yourself and anyone you're playing with to hear."
 }

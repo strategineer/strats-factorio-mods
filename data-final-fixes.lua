@@ -12,18 +12,19 @@ for voice, voice_data in pairs(VOICES) do
                 for i, variation in ipairs(variations) do
                     table.insert(notes, {
                         name = variation,
-                        sound = create_sound_prototype(voice, variation)
+                        sound = {filename = sound(voice, variation)}
                     })
                 end
-                p = {
+                data:extend({
                     create_sound_prototype_with_variations(voice, bark_name,
                                                            variations)
-                }
-                data:extend(p)
+                })
             else
-                p = {create_sound_prototype(voice, bark_name)}
-                table.insert(notes, {name = bark_name, sound = p})
-                data:extend(p)
+                table.insert(notes, {
+                    name = bark_name,
+                    sound = {filename = sound(voice, bark_name)}
+                })
+                data:extend({create_sound_prototype(voice, bark_name)})
             end
         end
         speaker.instruments[#speaker.instruments + 1] = {
