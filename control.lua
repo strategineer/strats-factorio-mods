@@ -5,6 +5,7 @@ script.on_event(defines.events.on_player_died, function(event)
     local player = game.get_player(event.player_index)
     try_play_event_voice_for_player(player, "on_player_died")
 end)
+
 script.on_event(defines.events.on_player_respawned, function(event)
     local player = game.get_player(event.player_index)
     try_play_event_voice_for_player(player, "on_player_respawned")
@@ -41,12 +42,12 @@ end)
 script.on_event(defines.events.on_entity_died, function(event)
     if (event.entity.is_military_target and event.cause) then
         local player = nil
-        -- driving car/tank/spider
         if ((event.cause.type == 'car' or event.cause.type == 'spider-vehicle') and
             event.cause.get_driver() and event.cause.get_driver().player) then
+            -- driving car/tank/spider
             player = event.cause.get_driver().player
-            -- player shooting
         elseif (event.cause.type == 'character' and event.cause.is_player()) then
+            -- player shooting
             player = event.cause.player
         end
 
