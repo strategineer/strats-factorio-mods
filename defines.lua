@@ -55,12 +55,12 @@ VOICES = {
         },
         events = {
             on_player_died = "gaming",
-            on_player_respawned = "gaming",
-            on_player_driving_changed_state = "gaming",
-            on_research_finished = "gaming",
-            on_research_started = "gaming",
-            on_rocket_launch_ordered = "gaming",
-            on_player_joined_game = "gaming",
+            on_player_respawned = "do_girls_game",
+            on_player_driving_changed_state = "gaming_gaming_gaming",
+            on_research_finished = "uhhhh_im_about_to_game",
+            on_research_started = "fast_gaming",
+            on_rocket_launch_ordered = "honey_im_gaming",
+            on_player_joined_game = "mom_im_playing_video_games",
             on_military_target_killed = "gaming"
         }
     }
