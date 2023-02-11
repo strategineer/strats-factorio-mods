@@ -75,6 +75,13 @@ function try_play_event_voice(voice, event_name, position)
     if sound then try_play_sound(voice, sound, position) end
 end
 
+function try_play_event_voice_announcer(event_name)
+    if global_config('announcer') then
+        voice = global_config('announcer')
+        try_play_event_voice(voice, event_name)
+    end
+end
+
 function try_play_event_voice_for_player(player, event_name)
     if player == nil then return end
     voice = player_config(player.index, 'voice')
@@ -83,50 +90,53 @@ end
 
 function config_key(name) return 'strats:sounds-' .. name end
 
-function config(name) return settings.startup[config_key(name)].value end
+function startup_config(name)
+    local k = config_key(name)
+    return settings.startup[k].value
+end
+
+function global_config(name)
+    local k = config_key(name)
+    return settings.global[k].value
+end
 
 function player_config(player_index, name)
-    return settings.get_player_settings(player_index)[config_key(name)].value
+    local k = config_key(name)
+    return settings.get_player_settings(player_index)[k].value
 end
 
-function sound(category, name)
-    return '__strats-sounds__/sound/' .. category .. '/' .. name .. ".ogg"
+function sound(voice, name)
+    return '__strats-sounds__/sound/' .. voice .. '/' .. name .. ".ogg"
 end
 
-function sound_key(category, name)
-    return 'strats:sounds-' .. category .. '.' .. name
-end
+function sound_key(voice, name) return 'strats:sounds-' .. voice .. '.' .. name end
 
-function create_sound_prototype(category, name)
+function create_sound_prototype(voice, name)
     return {
         type = 'sound',
-        name = sound_key(category, name),
-        filename = sound(category, name)
+        name = sound_key(voice, name),
+        filename = sound(voice, name)
     }
 end
 
-function create_sound_prototype_with_variations(category, name, variations)
+function create_sound_prototype_with_variations(voice, name, variations)
     variations_data = {}
     for i, v in pairs(variations) do
-        table.insert(variations_data, {filename = sound(category, v)})
+        table.insert(variations_data, {filename = sound(voice, v)})
     end
     return {
         type = 'sound',
-        name = sound_key(category, name),
+        name = sound_key(voice, name),
         variations = variations_data
     }
 end
 
-function try_play_sound_for(player, category, name)
-    try_play_sound(category, name, player.position)
-end
-
-function try_play_sound(category, name, position)
-    local k = sound_key(category, name)
+function try_play_sound(voice, name, position)
+    local k = sound_key(voice, name)
     if game.is_valid_sound_path(k) then
         game.play_sound({path = k, position = position})
     else
-        game.print("failed to play sound [" .. category .. "/" .. name ..
+        game.print("failed to play sound [" .. voice .. "/" .. name ..
                        "]. Please let strategineer know about this.")
     end
 end

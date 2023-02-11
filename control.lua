@@ -19,16 +19,10 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
 end)
 
 script.on_event(defines.events.on_research_finished, function(event)
-    if config('announcer') then
-        voice = config('announcer')
-        try_play_event_voice(voice, "on_research_finished")
-    end
+    try_play_event_voice_announcer("on_research_finished")
 end)
 script.on_event(defines.events.on_research_started, function(event)
-    if config('announcer') then
-        voice = config('announcer')
-        try_play_event_voice(voice, "on_research_started")
-    end
+    try_play_event_voice_announcer("on_research_started")
 end)
 
 script.on_event(defines.events.on_research_started, function(event)
