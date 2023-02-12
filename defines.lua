@@ -1,4 +1,6 @@
 -- todo make this extendable and put each voice into its own mod
+--   how? use settings to set up everything then use that data in data/control stage
+--   CON: can only save string/double/bool values... Maybe not a problem
 VOICES = {
     gordon_freeman = {
         sounds = {
@@ -132,49 +134,6 @@ VOICES = {
         }
     }
 }
-
-function try_play_sound(voice, name, position, player)
-    local k = sound_prototype_key(voice, name)
-    if game.is_valid_sound_path(k) then
-        if player then
-            player.play_sound({path = k, position = position})
-        else
-            game.play_sound({path = k, position = position})
-        end
-    else
-        game.print("failed to play sound [" .. voice .. "/" .. name ..
-                       "]. Please let strategineer know about this.")
-    end
-end
-
-function try_play_event_voice(voice, event_name, position, player)
-    if voice == nil then return end
-    voice_data = VOICES[voice]
-    if voice_data == nil then return end
-    events_data = voice_data["events"]
-    if events_data == nil then return end
-    sound = events_data[event_name]
-    if sound then try_play_sound(voice, sound, position, player) end
-end
-
-function try_play_event_voice_announcer(event_name)
-    if global_config('announcer') then
-        voice = global_config('announcer')
-        try_play_event_voice(voice, event_name)
-    end
-end
-
-function try_play_event_voice_for_player(player, event_name)
-    if player == nil then return end
-    voice = player_config(player.index, 'voice')
-    for i, other_p in pairs(game.players) do
-        if other_p == player then
-            try_play_event_voice(voice, event_name, nil, player)
-        else
-            try_play_event_voice(voice, event_name, player.position, other_p)
-        end
-    end
-end
 
 function config_key(name) return 'strats:voicepacks-' .. name end
 

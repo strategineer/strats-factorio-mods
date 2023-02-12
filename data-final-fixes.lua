@@ -7,6 +7,7 @@ for voice, voice_data in pairs(VOICES) do
         if k ~= 'sounds' then goto continue end
         notes = {}
         for bark_name, extra in pairs(v) do
+            log("Setting up voices: " .. voice .. ":" .. bark_name)
             if extra and extra["variations"] then
                 variations = extra["variations"]
                 for i, variation in ipairs(variations) do

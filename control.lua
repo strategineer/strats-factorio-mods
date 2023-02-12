@@ -1,14 +1,82 @@
 -- control.lua
 require("defines")
 
+global.player_index_who_died = 0
+global.tick_died_on = 0
+global.player_index_who_respawned = 0
+global.tick_respawned_on = 0
+
+function try_play_sound(voice, name, position, player)
+    local k = sound_prototype_key(voice, name)
+    if game.is_valid_sound_path(k) then
+        if player then
+            player.play_sound({path = k, position = position})
+        else
+            game.play_sound({path = k, position = position})
+        end
+    else
+        game.print("failed to play sound [" .. voice .. "/" .. name ..
+                       "]. Please let strategineer know about this.")
+    end
+end
+
+function try_play_event_voice(voice, event_name, position, player)
+    if voice == nil then return end
+    voice_data = VOICES[voice]
+    if voice_data == nil then return end
+    events_data = voice_data["events"]
+    if events_data == nil then return end
+    sound = events_data[event_name]
+    if sound then try_play_sound(voice, sound, position, player) end
+end
+
+function try_play_event_voice_announcer(event_name)
+    voice = global_config('announcer')
+    if voice then try_play_event_voice(voice, event_name) end
+end
+
+function try_play_event_voice_for_player(player, event_name)
+    if player == nil then return end
+    voice = player_config(player.index, 'voice')
+    for i, other_p in pairs(game.players) do
+        if other_p == player then
+            try_play_event_voice(voice, event_name, nil, player)
+        else
+            try_play_event_voice(voice, event_name, player.position, other_p)
+        end
+    end
+end
+
+script.on_event(defines.events.on_tick, function(event)
+    global.player_index_who_died = global.player_index_who_died or 0
+    global.tick_died_on = global.tick_died_on or 0
+    if global.player_index_who_died > 0 and global.tick_died_on <=
+        game.ticks_played then
+        local player = game.get_player(global.player_index_who_died)
+        try_play_event_voice_for_player(player, "on_player_died")
+        global.player_index_who_died = 0
+        global.tick_died_on = 0
+    end
+    -- HACK need a delay here otherwise the sound doesn't play where it's supposed to
+    global.player_index_who_respawned = global.player_index_who_respawned or 0
+    global.tick_respawned_on = global.tick_respawned_on or 0
+    if global.player_index_who_respawned > 0 and global.tick_respawned_on + 24 <=
+        game.ticks_played then
+        local player = game.get_player(global.player_index_who_respawned)
+        try_play_event_voice_for_player(player, "on_player_respawned")
+        global.player_index_who_respawned = 0
+        global.tick_respawned_on = 0
+    end
+end)
+
 script.on_event(defines.events.on_player_died, function(event)
-    local player = game.get_player(event.player_index)
-    try_play_event_voice_for_player(player, "on_player_died")
+    global.player_index_who_died = event.player_index
+    global.tick_died_on = event.tick
 end)
 
 script.on_event(defines.events.on_player_respawned, function(event)
-    local player = game.get_player(event.player_index)
-    try_play_event_voice_for_player(player, "on_player_respawned")
+    global.player_index_who_respawned = event.player_index
+    global.tick_respawned_on = event.tick
 end)
 
 script.on_event(defines.events.on_player_driving_changed_state, function(event)
