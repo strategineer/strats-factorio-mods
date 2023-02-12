@@ -1,5 +1,6 @@
 -- todo switch out breathing sounds?
--- todo make this extendable and put each voice into its own mod 
+-- todo make this extendable and put each voice into its own mod
+-- todo ammo_depleted event
 VOICES = {
     gordon_freeman = {
         sounds = {
