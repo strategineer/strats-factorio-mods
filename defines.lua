@@ -1,8 +1,11 @@
+-- todo add to each speaker seperately
+VOLUME = 3
 -- todo make this extendable and put each voice into its own mod
 --   how? use startup settings to set up everything then use that data in data/control stage of our mod
 --   CON: can only save string/double/bool values... Maybe not a problem
 --   PRO: make it so that players can easily swap sounds in and out to customize their voicepack to their liking from the available options
 --   being able to split strings might be useful? 
+
 VOICES = {
     motivational_speaker = {
         sounds = {
@@ -10,6 +13,7 @@ VOICES = {
             ammo_wont_help = {},
             bugs_arent_going_to = {},
             correct_ratio_of_steam_engines = {},
+            die = {variations = {"die", "please_die", "kill_these_bugs_please"}},
             guncock = {},
             lets_roll_out = {},
             make_better_choices = {},
@@ -39,8 +43,8 @@ VOICES = {
             on_research_finished = "thank_god",
             on_research_started = "make_better_choices",
             -- on_rocket_launch_ordered = "",
-            on_player_joined_game = "priorities"
-            -- on_military_target_killed = ""
+            on_player_joined_game = "priorities",
+            on_military_target_killed = "die"
         }
     },
     gordon_freeman = {
@@ -206,14 +210,16 @@ function create_sound_prototype(voice, name)
         type = 'sound',
         name = sound_prototype_key(voice, name),
         filename = sound_filepath(voice, name),
-        category = "gui-effect"
+        category = "gui-effect",
+        volume = VOLUME
     }
 end
 
 function create_sound_prototype_with_variations(voice, name, variations)
     variations_data = {}
     for i, v in pairs(variations) do
-        table.insert(variations_data, {filename = sound_filepath(voice, v)})
+        table.insert(variations_data,
+                     {volume = VOLUME, filename = sound_filepath(voice, v)})
     end
     return {
         type = 'sound',

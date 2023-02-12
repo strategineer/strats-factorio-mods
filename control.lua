@@ -130,13 +130,13 @@ script.on_event(defines.events.on_entity_died, function(event)
             event.cause.get_driver() and event.cause.get_driver().player) then
             -- driving car/tank/spider
             player = event.cause.get_driver().player
-        elseif (event.cause.type == 'character' and event.cause.is_player()) then
+        elseif (event.cause.type == 'character') then
             -- player shooting
             player = event.cause.player
         end
 
         if player then
-            if math.random() <
+            if math.random() <=
                 player_config(player.index, 'kill-bark-probability') then
                 try_play_event_voice_for_player(player,
                                                 'on_military_target_killed')
