@@ -1,6 +1,4 @@
--- todo switch out breathing sounds?
 -- todo make this extendable and put each voice into its own mod
--- todo ammo_depleted event
 VOICES = {
     gordon_freeman = {
         sounds = {
@@ -21,6 +19,7 @@ VOICES = {
             evacuate_area = {},
             flatline = {},
             fuzz = {},
+            guncock = {},
             health_critical = {},
             health_dropping = {
                 variations = {"health_dropping", "health_dropping2"}
@@ -43,9 +42,14 @@ VOICES = {
             weapon_pickup = {}
         },
         events = {
-            on_player_hp_critical = "near_death",
-            on_player_hp_low = "hev_damage",
-            on_player_damaged = "pain",
+            on_player_armor_inventory_changed__removed = "armor_gone",
+            on_player_armor_inventory_changed__equipped = "suitchargeok",
+            on_player_ammo_inventory_changed__empty = "ammo_depleted",
+            on_player_ammo_inventory_changed__full = "guncock",
+            on_player_gun_inventory_changed = "guncock",
+            on_player_damaged__hp_critical = "near_death",
+            on_player_damaged__hp_low = "hev_damage",
+            on_player_damaged__hit = "pain",
             on_player_died = "flatline",
             on_player_respawned = "activated",
             on_player_driving_changed_state = "evacuate_area",
@@ -88,9 +92,9 @@ VOICES = {
             you_belong_to_me_there_is_no_bathroom = {}
         },
         events = {
-            on_player_hp_critical = "f_you",
-            on_player_hp_low = "f_you",
-            on_player_damaged = "hahaha",
+            on_player_damaged__hp_critical = "f_you",
+            on_player_damaged__hp_low = "f_you",
+            on_player_damaged__hit = "hahaha",
             on_player_died = "hasta_la_vista",
             on_player_respawned = "i_am_back",
             on_player_driving_changed_state = "get_to_da_choppa",
@@ -114,9 +118,9 @@ VOICES = {
             uhhhh_im_about_to_game = {}
         },
         events = {
-            on_player_hp_critical = "uhhhh_im_about_to_game ",
-            on_player_hp_low = "gaming_gaming_gaming ",
-            on_player_damaged = "gaming",
+            on_player_damaged__hp_critical = "uhhhh_im_about_to_game ",
+            on_player_damaged__hp_low = "gaming_gaming_gaming ",
+            on_player_damaged__hit = "gaming",
             on_player_died = "gaming",
             on_player_respawned = "do_girls_game",
             on_player_driving_changed_state = "gaming_gaming_gaming",

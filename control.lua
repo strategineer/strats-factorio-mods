@@ -46,12 +46,12 @@ script.on_event(defines.events.on_entity_damaged, function(event)
     local pre_health_ratio = (event.final_health + event.final_damage_amount) /
                                  max_health
     if post_health_ratio < 0.25 and pre_health_ratio >= 0.25 then
-        try_play_event_voice_for_player(player, 'on_player_hp_critical')
+        try_play_event_voice_for_player(player, 'on_player_damaged__hp_critical')
     elseif post_health_ratio < 0.5 and pre_health_ratio >= 0.5 then
-        try_play_event_voice_for_player(player, 'on_player_hp_low')
+        try_play_event_voice_for_player(player, 'on_player_damaged__hp_low')
     end
     if math.random() < player_config(player.index, 'damaged-bark-probability') then
-        try_play_event_voice_for_player(player, 'on_player_damaged')
+        try_play_event_voice_for_player(player, 'on_player_damaged__hit')
     end
 end, {{filter = "type", type = "character"}})
 
@@ -79,3 +79,48 @@ end, {
     {filter = "type", type = "unit"}, {filter = "type", type = "unit-spawner"},
     {filter = "type", type = "turret"}
 })
+
+script.on_event(defines.events.on_player_gun_inventory_changed, function(event)
+    local player = game.get_player(event.player_index)
+    try_play_event_voice_for_player(player, "on_player_gun_inventory_changed")
+end)
+
+script.on_event(defines.events.on_player_ammo_inventory_changed, function(event)
+    local player = game.get_player(event.player_index)
+    ammo_inventory = player.character.get_inventory(defines.inventory
+                                                        .character_ammo)
+
+    ammo_stack_for_equipped_weapon = ammo_inventory[player.character
+                                         .selected_gun_index]
+    if ammo_stack_for_equipped_weapon.count == 0 then
+        try_play_event_voice_for_player(player,
+                                        "on_player_ammo_inventory_changed__empty")
+        return
+    end
+    if ammo_stack_for_equipped_weapon.count ==
+        ammo_stack_for_equipped_weapon.prototype.stack_size then
+        try_play_event_voice_for_player(player,
+                                        "on_player_ammo_inventory_changed__full")
+    end
+    -- todo how can I make this only play once?
+    -- local ratio = ammo_stack_for_equipped_weapon.count /
+    --                  ammo_stack_for_equipped_weapon.prototype.stack_size
+    -- if ratio < 0.10 then
+    --    try_play_event_voice_for_player(player, "on_ammo_for_equipped_gun_low")
+    -- end
+end)
+
+script.on_event(defines.events.on_player_armor_inventory_changed,
+                function(event)
+    local player = game.get_player(event.player_index)
+    armor_inventory = player.character.get_inventory(defines.inventory
+                                                         .character_armor)
+    if armor_inventory.is_empty() then
+        try_play_event_voice_for_player(player,
+                                        "on_player_armor_inventory_changed__removed")
+    else
+        try_play_event_voice_for_player(player,
+                                        "on_player_armor_inventory_changed__equipped")
+    end
+end)
+
