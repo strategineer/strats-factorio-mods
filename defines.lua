@@ -7,10 +7,13 @@ VOICES = {
     motivational_speaker = {
         sounds = {
             about_to_die = {},
+            ammo_wont_help = {},
             bugs_arent_going_to = {},
             correct_ratio_of_steam_engines = {},
+            guncock = {},
             lets_roll_out = {},
             make_better_choices = {},
+            no_ammo_in_gun = {},
             not_like_this = {},
             pain = {variations = {"ouch", "ow"}},
             priorities = {},
@@ -24,9 +27,9 @@ VOICES = {
         events = {
             on_player_armor_inventory_changed__removed = "put_your_clothes_back_on",
             on_player_armor_inventory_changed__equipped = "protect_you_from_bugs",
-            -- on_player_ammo_inventory_changed__empty = "",
-            -- on_player_ammo_inventory_changed__full = "",
-            -- on_player_gun_inventory_changed = "",
+            on_player_ammo_inventory_changed__empty = "no_ammo_in_gun",
+            on_player_ammo_inventory_changed__full = "ammo_wont_help",
+            on_player_gun_inventory_changed__equipped = "guncock",
             on_player_damaged__hp_critical = "about_to_die",
             on_player_damaged__hp_low = "not_like_this",
             on_player_damaged__hit = "pain",
@@ -86,7 +89,7 @@ VOICES = {
             on_player_armor_inventory_changed__equipped = "suitchargeok",
             on_player_ammo_inventory_changed__empty = "ammo_depleted",
             on_player_ammo_inventory_changed__full = "guncock",
-            on_player_gun_inventory_changed = "guncock",
+            on_player_gun_inventory_changed__equipped = "guncock",
             on_player_damaged__hp_critical = "near_death",
             on_player_damaged__hp_low = "hev_damage",
             on_player_damaged__hit = "pain",
@@ -202,7 +205,8 @@ function create_sound_prototype(voice, name)
     return {
         type = 'sound',
         name = sound_prototype_key(voice, name),
-        filename = sound_filepath(voice, name)
+        filename = sound_filepath(voice, name),
+        category = "gui-effect"
     }
 end
 
@@ -214,6 +218,7 @@ function create_sound_prototype_with_variations(voice, name, variations)
     return {
         type = 'sound',
         name = sound_prototype_key(voice, name),
-        variations = variations_data
+        variations = variations_data,
+        category = "gui-effect"
     }
 end

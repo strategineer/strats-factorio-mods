@@ -150,6 +150,17 @@ end, {
 
 script.on_event(defines.events.on_player_gun_inventory_changed, function(event)
     local player = game.get_player(event.player_index)
+    local gun_inventory = player.character.get_inventory(defines.inventory
+                                                             .character_guns)
+
+    local gun_stack = gun_inventory[player.character.selected_gun_index]
+    if gun_stack.count > 0 then
+        try_play_event_voice_for_player(player,
+                                        "on_player_gun_inventory_changed__equipped")
+    else
+        try_play_event_voice_for_player(player,
+                                        "on_player_gun_inventory_changed__none_equipped")
+    end
     try_play_event_voice_for_player(player, "on_player_gun_inventory_changed")
 end)
 
