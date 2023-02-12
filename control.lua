@@ -39,6 +39,25 @@ script.on_event(defines.events.on_player_joined_game, function(event)
     try_play_event_voice_for_player(player, "on_player_joined_game")
 end)
 
+script.on_event(defines.events.on_entity_damaged, function(event)
+    if event.entity.get_main_inventory() then
+        local player = game.get_player(event.entity.player.index)
+        local max_health = event.entity.prototype.max_health
+        local post_health_ratio = event.final_health / max_health
+        local pre_health_ratio =
+            (event.final_health + event.final_damage_amount) / max_health
+        if post_health_ratio < 0.25 and pre_health_ratio >= 0.25 then
+            try_play_event_voice_for_player(player, 'on_player_hp_critical')
+        elseif post_health_ratio < 0.5 and pre_health_ratio >= 0.5 then
+            try_play_event_voice_for_player(player, 'on_player_hp_low')
+        end
+        if math.random() <
+            player_config(player.index, 'damaged-bark-probability') then
+            try_play_event_voice_for_player(player, 'on_player_damaged')
+        end
+    end
+end)
+
 script.on_event(defines.events.on_entity_died, function(event)
     if (event.entity.is_military_target and event.cause) then
         local player = nil

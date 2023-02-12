@@ -12,7 +12,7 @@ for voice, voice_data in pairs(VOICES) do
                 for i, variation in ipairs(variations) do
                     table.insert(notes, {
                         name = variation,
-                        sound = {filename = sound(voice, variation)}
+                        sound = {filename = sound_filepath(voice, variation)}
                     })
                 end
                 data:extend({
@@ -22,7 +22,7 @@ for voice, voice_data in pairs(VOICES) do
             else
                 table.insert(notes, {
                     name = bark_name,
-                    sound = {filename = sound(voice, bark_name)}
+                    sound = {filename = sound_filepath(voice, bark_name)}
                 })
                 data:extend({create_sound_prototype(voice, bark_name)})
             end

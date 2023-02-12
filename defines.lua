@@ -1,5 +1,60 @@
+-- todo switch out breathing sounds?
+-- todo make this extendable and put each voice into its own mod 
 VOICES = {
-    gordon_freeman = {},
+    gordon_freeman = {
+        sounds = {
+            acquired = {},
+            activated = {},
+            alert = {},
+            ammo_depleted = {},
+            ammo_pickup = {},
+            armor_gone = {},
+            beep = {},
+            bell = {},
+            biohazard_detected = {},
+            blip = {},
+            boop = {},
+            breathe = {variations = {"breathe1", "breathe2"}},
+            buzz = {},
+            danger = {},
+            evacuate_area = {},
+            flatline = {},
+            fuzz = {},
+            health_critical = {},
+            health_dropping = {
+                variations = {"health_dropping", "health_dropping2"}
+            },
+            heartbeat = {},
+            hev_damage = {},
+            hev_general_fail = {},
+            hiss = {},
+            medcharge = {},
+            medshot = {},
+            near_death = {},
+            pain = {variations = {"pain2", "pain4", "pain5", "pain6", "pain7"}},
+            radiation_detected = {},
+            safe_day = {},
+            smallmedkit = {},
+            suitcharge = {},
+            suitchargeok = {},
+            time_is_now = {},
+            warning = {},
+            weapon_pickup = {}
+        },
+        events = {
+            on_player_hp_critical = "near_death",
+            on_player_hp_low = "hev_damage",
+            on_player_damaged = "pain",
+            on_player_died = "flatline",
+            on_player_respawned = "activated",
+            on_player_driving_changed_state = "evacuate_area",
+            on_research_finished = "boop",
+            on_research_started = "bell",
+            on_rocket_launch_ordered = "safe_day",
+            on_player_joined_game = "safe_day"
+            -- on_military_target_killed = ""
+        }
+    },
     arnold = {
         sounds = {
             affirmative = {},
@@ -32,6 +87,9 @@ VOICES = {
             you_belong_to_me_there_is_no_bathroom = {}
         },
         events = {
+            on_player_hp_critical = "f_you",
+            on_player_hp_low = "f_you",
+            on_player_damaged = "hahaha",
             on_player_died = "hasta_la_vista",
             on_player_respawned = "i_am_back",
             on_player_driving_changed_state = "get_to_da_choppa",
@@ -55,6 +113,9 @@ VOICES = {
             uhhhh_im_about_to_game = {}
         },
         events = {
+            on_player_hp_critical = "uhhhh_im_about_to_game ",
+            on_player_hp_low = "gaming_gaming_gaming ",
+            on_player_damaged = "gaming",
             on_player_died = "gaming",
             on_player_respawned = "do_girls_game",
             on_player_driving_changed_state = "gaming_gaming_gaming",
@@ -68,7 +129,7 @@ VOICES = {
 }
 
 function try_play_sound(voice, name, position, player)
-    local k = sound_key(voice, name)
+    local k = sound_prototype_key(voice, name)
     if game.is_valid_sound_path(k) then
         if player then
             player.play_sound({path = k, position = position})
@@ -127,30 +188,30 @@ function player_config(player_index, name)
     return settings.get_player_settings(player_index)[k].value
 end
 
-function sound(voice, name)
+function sound_filepath(voice, name)
     return '__strats-voicepacks__/sound/' .. voice .. '/' .. name .. ".ogg"
 end
 
-function sound_key(voice, name)
+function sound_prototype_key(voice, name)
     return 'strats:voicepacks:' .. voice .. '.' .. name
 end
 
 function create_sound_prototype(voice, name)
     return {
         type = 'sound',
-        name = sound_key(voice, name),
-        filename = sound(voice, name)
+        name = sound_prototype_key(voice, name),
+        filename = sound_filepath(voice, name)
     }
 end
 
 function create_sound_prototype_with_variations(voice, name, variations)
     variations_data = {}
     for i, v in pairs(variations) do
-        table.insert(variations_data, {filename = sound(voice, v)})
+        table.insert(variations_data, {filename = sound_filepath(voice, v)})
     end
     return {
         type = 'sound',
-        name = sound_key(voice, name),
+        name = sound_prototype_key(voice, name),
         variations = variations_data
     }
 end
