@@ -1,7 +1,45 @@
 -- todo make this extendable and put each voice into its own mod
---   how? use settings to set up everything then use that data in data/control stage
+--   how? use startup settings to set up everything then use that data in data/control stage of our mod
 --   CON: can only save string/double/bool values... Maybe not a problem
+--   PRO: make it so that players can easily swap sounds in and out to customize their voicepack to their liking from the available options
+--   being able to split strings might be useful? 
 VOICES = {
+    motivational_speaker = {
+        sounds = {
+            about_to_die = {},
+            bugs_arent_going_to = {},
+            correct_ratio_of_steam_engines = {},
+            lets_roll_out = {},
+            make_better_choices = {},
+            not_like_this = {},
+            pain = {variations = {"ouch", "ow"}},
+            priorities = {},
+            protect_you_from_bugs = {},
+            put_your_clothes_back_on = {},
+            thank_god = {},
+            try_a_little_harder = {},
+            trying_to_launch_one_rocket = {},
+            wake_up = {}
+        },
+        events = {
+            on_player_armor_inventory_changed__removed = "put_your_clothes_back_on",
+            on_player_armor_inventory_changed__equipped = "protect_you_from_bugs",
+            -- on_player_ammo_inventory_changed__empty = "",
+            -- on_player_ammo_inventory_changed__full = "",
+            -- on_player_gun_inventory_changed = "",
+            on_player_damaged__hp_critical = "about_to_die",
+            on_player_damaged__hp_low = "not_like_this",
+            on_player_damaged__hit = "pain",
+            on_player_died = "try_a_little_harder",
+            on_player_respawned = "wake_up",
+            on_player_driving_changed_state = "lets_roll_out",
+            on_research_finished = "thank_god",
+            on_research_started = "make_better_choices",
+            -- on_rocket_launch_ordered = "",
+            on_player_joined_game = "priorities"
+            -- on_military_target_killed = ""
+        }
+    },
     gordon_freeman = {
         sounds = {
             acquired = {},

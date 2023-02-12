@@ -1,20 +1,20 @@
 require('defines')
 
-local voices = {'gordon_freeman', 'arnold', 'gamer'}
+local voices = {'arnold', 'gamer', 'gordon_freeman', 'motivational_speaker'}
 
 data:extend{
     {
         name = config_key('announcer'),
         type = 'string-setting',
         setting_type = 'runtime-global',
-        default_value = 'arnold',
+        default_value = 'motivational_speaker',
         allowed_values = voices,
         order = 'g - a'
     }, {
         name = config_key('voice'),
         type = 'string-setting',
         setting_type = 'runtime-per-user',
-        default_value = 'arnold',
+        default_value = 'motivational_speaker',
         allowed_values = voices,
         order = 'b'
     }, {
