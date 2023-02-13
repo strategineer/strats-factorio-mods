@@ -1,6 +1,8 @@
 require('defines')
 
-local voices = {'arnold', 'gamer', 'gordon_freeman', 'motivational_speaker'}
+local voices = {
+    'none', 'arnold', 'gamer', 'gordon_freeman', 'motivational_speaker'
+}
 
 data:extend{
     {

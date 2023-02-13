@@ -7,6 +7,7 @@ VOLUME = 3
 --   being able to split strings might be useful? 
 
 VOICES = {
+    none = {},
     motivational_speaker = {
         sounds = {
             about_to_die = {},
