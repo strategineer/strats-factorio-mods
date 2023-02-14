@@ -9,7 +9,8 @@ function setting_sound(voice, sound)
         type = 'string-setting',
         default_value = sound .. ".ogg",
         setting_type = 'startup',
-        order = "a - " .. sound
+        order = "a - " .. sound,
+        hidden = true
     }
 end
 
@@ -19,7 +20,8 @@ function setting_sounds(voice, name, sounds)
         type = 'string-setting',
         default_value = sounds,
         setting_type = 'startup',
-        order = "a - " .. name
+        order = "a - " .. name,
+        hidden = true
     }
 end
 
@@ -31,6 +33,7 @@ function setting_event(voice, event, sound, p)
         type = 'string-setting',
         default_value = sound .. "-" .. probability,
         setting_type = 'startup',
-        order = "b - " .. event
+        order = "b - " .. event,
+        hidden = true
     }
 end

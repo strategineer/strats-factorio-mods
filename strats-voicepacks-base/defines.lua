@@ -5,7 +5,6 @@ local ESCAPED_STRATS_VOICEPACKS_PACK_SETTING_PREFIX =
 local STRATS_VOICEPACKS_PACK_SETTING_PREFIX = "strats-voicepacks-pack-"
 local STRATS_VOICEPACKS_MOD_NAME = "strats-voicepacks-base"
 -- todo make code much more robust
--- todo add to each speaker seperately
 -- todo allow non ogg formats
 -- todo allow each mod to set their own volume
 local VOLUME = 3
