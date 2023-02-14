@@ -38,6 +38,6 @@ data:extend{
     setting_event(vn, "on_player_driving_changed_state__enter", "evacuate_area"),
     setting_event(vn, "on_research_finished", "boop"),
     setting_event(vn, "on_research_started", "bell"),
-    setting_event(vn, "on_rocket_launch_ordered", "safe_day"),
+    setting_event(vn, "on_rocket_launch_ordered__riding", "safe_day"),
     setting_event(vn, "on_player_joined_game", "safe_day")
 }

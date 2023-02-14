@@ -115,11 +115,13 @@ script.on_event(defines.events.on_research_started, function(event)
     try_play_event_voice_announcer("on_research_started")
 end)
 
-script.on_event(defines.events.on_research_started, function(event)
+script.on_event(defines.events.on_rocket_launch_ordered, function(event)
     -- is player riding the rocket? 
     if event.player_index then
         local player = game.get_player(event.player_index)
-        try_play_event_voice_for_player(player, "on_research_started")
+        -- todo add an event here for the spectators watching the guy ride
+        try_play_event_voice_for_player(player,
+                                        "on_rocket_launch_ordered__riding")
     end
 end)
 

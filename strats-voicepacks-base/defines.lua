@@ -9,6 +9,7 @@ local STRATS_VOICEPACKS_MOD_NAME = "strats-voicepacks-base"
 -- todo add to each speaker seperately
 -- todo allow non ogg formats
 -- todo allow each mod to set their own volume
+-- todo make a generic -probability setting and allow it to be set for in the setting_event function
 local VOLUME = 3
 
 function debug_log(s) if DEBUG then log(s) end end
