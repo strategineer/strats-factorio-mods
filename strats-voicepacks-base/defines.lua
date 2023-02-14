@@ -3,7 +3,7 @@ local DEBUG = false
 local ESCAPED_STRATS_VOICEPACKS_PACK_SETTING_PREFIX =
     "strats%-voicepacks%-pack%-"
 local STRATS_VOICEPACKS_PACK_SETTING_PREFIX = "strats-voicepacks-pack-"
-local STRATS_VOICEPACKS_MOD_NAME = "strats-voicepacks"
+local STRATS_VOICEPACKS_MOD_NAME = "strats-voicepacks-base"
 -- todo make code much more robust
 -- todo update locale stuff into the seperate mods
 -- todo add to each speaker seperately

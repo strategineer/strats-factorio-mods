@@ -1,4 +1,4 @@
-require("__strats-voicepacks__.helpers")
+require("__strats-voicepacks-base__.helpers")
 
 local vn = "motivational_speaker"
 
