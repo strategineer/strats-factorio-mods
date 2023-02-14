@@ -13,13 +13,13 @@ data:extend{
     setting_event(vn, "on_player_gun_inventory_changed__equipped", "quack"),
     setting_event(vn, "on_player_damaged__hp_critical", "quack"),
     setting_event(vn, "on_player_damaged__hp_low", "quack"),
-    setting_event(vn, "on_player_damaged__hit", "quack"),
+    setting_event(vn, "on_player_damaged__hit", "quack", 0.2),
     setting_event(vn, "on_player_died", "quack"),
     setting_event(vn, "on_player_respawned", "quack"),
     setting_event(vn, "on_player_driving_changed_state__enter", "quack"),
     setting_event(vn, "on_research_finished", "call"),
     setting_event(vn, "on_research_started", "call"),
-    setting_event(vn, "on_rocket_launch_ordered", "call"),
+    setting_event(vn, "on_rocket_launch_ordered__riding", "call"),
     setting_event(vn, "on_player_joined_game", "call"),
-    setting_event(vn, "on_military_target_killed", "quack")
+    setting_event(vn, "on_military_target_killed", "quack", 0.4)
 }

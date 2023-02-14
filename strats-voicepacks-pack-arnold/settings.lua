@@ -22,15 +22,15 @@ data:extend{
     setting_sounds(vn, "ill_be_back", "ill_be_back1,ill_be_back2"),
     setting_event(vn, "on_player_damaged__hp_critical", "f_you"),
     setting_event(vn, "on_player_damaged__hp_low", "f_you"),
-    setting_event(vn, "on_player_damaged__hit", "hahaha"),
+    setting_event(vn, "on_player_damaged__hit", "hahaha", 0.2),
     setting_event(vn, "on_player_died", "hasta_la_vista"),
     setting_event(vn, "on_player_respawned", "i_am_back"),
     setting_event(vn, "on_player_driving_changed_state__enter",
                   "get_to_da_choppa"),
     setting_event(vn, "on_research_finished", "as_satisfying_as"),
     setting_event(vn, "on_research_started", "cool"),
-    setting_event(vn, "on_rocket_launch_ordered", "ill_be_back"),
+    setting_event(vn, "on_rocket_launch_ordered__riding", "ill_be_back"),
     setting_event(vn, "on_player_joined_game",
                   "you_belong_to_me_there_is_no_bathroom"),
-    setting_event(vn, "on_military_target_killed", "hahaha")
+    setting_event(vn, "on_military_target_killed", "hahaha", 0.25)
 }

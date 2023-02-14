@@ -12,14 +12,14 @@ data:extend{
     setting_sound(vn, "uhhhh_im_about_to_game"),
     setting_event(vn, "on_player_damaged__hp_critical", "uhhhh_im_about_to_game"),
     setting_event(vn, "on_player_damaged__hp_low", "gaming_gaming_gaming"),
-    setting_event(vn, "on_player_damaged__hit", "gaming"),
+    setting_event(vn, "on_player_damaged__hit", "gaming", 0.2),
     setting_event(vn, "on_player_died", "gaming"),
     setting_event(vn, "on_player_respawned", "do_girls_game"),
     setting_event(vn, "on_player_driving_changed_state__enter",
                   "gaming_gaming_gaming"),
     setting_event(vn, "on_research_finished", "uhhhh_im_about_to_game"),
     setting_event(vn, "on_research_started", "fast_gaming"),
-    setting_event(vn, "on_rocket_launch_ordered", "honey_im_gaming"),
+    setting_event(vn, "on_rocket_launch_ordered__riding", "honey_im_gaming"),
     setting_event(vn, "on_player_joined_game", "mom_im_playing_video_games"),
-    setting_event(vn, "on_military_target_killed", "gaming")
+    setting_event(vn, "on_military_target_killed", "gaming", 0.3)
 }

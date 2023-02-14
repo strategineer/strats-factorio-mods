@@ -27,13 +27,13 @@ data:extend{
     setting_event(vn, "on_player_gun_inventory_changed__equipped", "guncock"),
     setting_event(vn, "on_player_damaged__hp_critical", "about_to_die"),
     setting_event(vn, "on_player_damaged__hp_low", "not_like_this"),
-    setting_event(vn, "on_player_damaged__hit", "pain"),
+    setting_event(vn, "on_player_damaged__hit", "pain", 0.3),
     setting_event(vn, "on_player_died", "try_a_little_harder"),
     setting_event(vn, "on_player_respawned", "wake_up"),
     setting_event(vn, "on_player_driving_changed_state__enter", "lets_roll_out"),
     setting_event(vn, "on_research_finished", "thank_god"),
     setting_event(vn, "on_research_started", "make_better_choices"),
     setting_event(vn, "on_player_joined_game", "priorities"),
-    setting_event(vn, "on_military_target_killed", "die")
+    setting_event(vn, "on_military_target_killed", "die", 0.4)
 }
 

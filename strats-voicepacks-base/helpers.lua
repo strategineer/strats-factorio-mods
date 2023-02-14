@@ -23,11 +23,13 @@ function setting_sounds(voice, name, sounds)
     }
 end
 
-function setting_event(voice, event, sound)
+function setting_event(voice, event, sound, p)
+    probability = 1.0
+    if p ~= nil then probability = p end
     return {
         name = config_key(voice, "events", event),
         type = 'string-setting',
-        default_value = sound,
+        default_value = sound .. "-" .. probability,
         setting_type = 'startup',
         order = "b - " .. event
     }

@@ -5,17 +5,15 @@ local ESCAPED_STRATS_VOICEPACKS_PACK_SETTING_PREFIX =
 local STRATS_VOICEPACKS_PACK_SETTING_PREFIX = "strats-voicepacks-pack-"
 local STRATS_VOICEPACKS_MOD_NAME = "strats-voicepacks-base"
 -- todo make code much more robust
--- todo update locale stuff into the seperate mods
 -- todo add to each speaker seperately
 -- todo allow non ogg formats
 -- todo allow each mod to set their own volume
--- todo make a generic -probability setting and allow it to be set for in the setting_event function
 local VOLUME = 3
 
 function debug_log(s) if DEBUG then log(s) end end
 function debug_print(s)
     if DEBUG then
-        game.print(s)
+        if game ~= nil then game.print(s) end
         log(s)
     end
 end
@@ -56,26 +54,35 @@ function build_voices()
             debug_log("voice_name: " .. voice_name)
             debug_log("setting_type: " .. setting_type)
             debug_log("setting_value: " .. setting_value)
-            local v_to_set = nil
+            local v_to_set = v.default_value or v.value
+            local prob = nil
             if setting_type == "events" then
                 -- todo log if event is wrong
-                v_to_set = v.default_value or v.value
-                debug_log("setting: " .. v_to_set)
+                debug_log("... handling event: " .. v_to_set)
+                if string.find(v_to_set, "-") then
+                    debug_log("... event with probability found")
+                    params = split(v_to_set, "-")
+                    v_to_set = params[1]
+                    prob = tonumber(params[2])
+                    debug_log("... found probability: " .. prob)
+                end
+                debug_log("... setting: " .. v_to_set)
             else
                 if setting_type == "sounds" then
-                    new_v = v.default_value or v.value
-                    if string.find(new_v, ",") then
-                        local sounds = split(new_v, ",")
+                    if string.find(v_to_set, ",") then
+                        debug_log("... setting variations: " .. v_to_set)
+                        local sounds = split(v_to_set, ",")
                         v_to_set = {variations = sounds}
-                        debug_log("setting variations: " .. new_v)
                     else
-                        v_to_set = new_v
-                        debug_log("setting: " .. v_to_set)
+                        debug_log("... setting: " .. v_to_set)
                     end
                 else
                     log("UNEXPECTED ERROR")
                     goto continue_setup
                 end
+            end
+            if prob ~= nil then
+                debug_log("... probability: " .. prob)
             end
             if v_to_set ~= nil then
                 if voices[voice_name] == nil then
@@ -84,7 +91,13 @@ function build_voices()
                 if voices[voice_name][setting_type] == nil then
                     voices[voice_name][setting_type] = {}
                 end
-                voices[voice_name][setting_type][setting_value] = v_to_set
+                if setting_type ~= "events" then
+                    voices[voice_name][setting_type][setting_value] = v_to_set
+                else
+                    local d = {sound = v_to_set, probability = prob}
+                    debug_print("... DEBUG" .. serpent.block(d))
+                    voices[voice_name][setting_type][setting_value] = d
+                end
             end
             ::continue_setup::
         end
@@ -116,7 +129,7 @@ function sound_filepath(voice, name)
 end
 
 function sound_prototype_key(voice, name)
-    return STRATS_VOICEPACKS_PACK_SETTING_PREFIX .. '-' .. voice .. '.' .. name
+    return STRATS_VOICEPACKS_PACK_SETTING_PREFIX .. voice .. '.' .. name
 end
 
 function create_sound_prototype(voice, name)

@@ -39,12 +39,17 @@ function try_play_event_voice(voice, event_name, position, player)
         debug_print("... nil events data")
         return
     end
-    sound = events_data[event_name]
-    if sound == nil then
-        debug_print("... nil sound")
+    sound_data = events_data[event_name]
+    if sound_data == nil then
+        debug_print("... nil sound_data")
         return
     end
-    try_play_sound(voice, sound, position, player)
+    debug_print(serpent.block(sound_data))
+    sound = sound_data["sound"]
+    probability = sound_data["probability"]
+    if probability == nil or math.random() <= probability then
+        try_play_sound(voice, sound, position, player)
+    end
 end
 
 function try_play_event_voice_announcer(event_name)
@@ -141,9 +146,7 @@ script.on_event(defines.events.on_entity_damaged, function(event)
     elseif post_health_ratio < 0.5 and pre_health_ratio >= 0.5 then
         try_play_event_voice_for_player(player, 'on_player_damaged__hp_low')
     end
-    if math.random() < player_config(player.index, 'damaged-bark-probability') then
-        try_play_event_voice_for_player(player, 'on_player_damaged__hit')
-    end
+    try_play_event_voice_for_player(player, 'on_player_damaged__hit')
 end, {{filter = "type", type = "character"}})
 
 script.on_event(defines.events.on_entity_died, function(event)
@@ -159,11 +162,7 @@ script.on_event(defines.events.on_entity_died, function(event)
         end
 
         if player then
-            if math.random() <=
-                player_config(player.index, 'kill-bark-probability') then
-                try_play_event_voice_for_player(player,
-                                                'on_military_target_killed')
-            end
+            try_play_event_voice_for_player(player, 'on_military_target_killed')
         end
     end
 end, {
