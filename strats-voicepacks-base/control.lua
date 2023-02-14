@@ -100,7 +100,11 @@ script.on_event(defines.events.on_player_driving_changed_state, function(event)
     local player = game.get_player(event.player_index)
     if player.character.vehicle then
         try_play_event_voice_for_player(player,
-                                        "on_player_driving_changed_state")
+                                        "on_player_driving_changed_state__enter")
+    else
+
+        try_play_event_voice_for_player(player,
+                                        "on_player_driving_changed_state__exit")
     end
 end)
 

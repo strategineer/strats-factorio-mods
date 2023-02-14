@@ -35,7 +35,7 @@ data:extend{
     setting_event(vn, "on_player_damaged__hit", "pain"),
     setting_event(vn, "on_player_died", "flatline"),
     setting_event(vn, "on_player_respawned", "activated"),
-    setting_event(vn, "on_player_driving_changed_state", "evacuate_area"),
+    setting_event(vn, "on_player_driving_changed_state__enter", "evacuate_area"),
     setting_event(vn, "on_research_finished", "boop"),
     setting_event(vn, "on_research_started", "bell"),
     setting_event(vn, "on_rocket_launch_ordered", "safe_day"),
