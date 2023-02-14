@@ -8,6 +8,40 @@ VOLUME = 3
 
 VOICES = {
     none = {},
+    duck = {
+        sounds = {
+            quack = {
+                variations = {
+                    "quack1", "quack2", "quack3", "quack4", "quack5", "quack6",
+                    "quack7"
+                }
+            },
+            call = {
+                variations = {
+                    "call1", "call2", "call3", "call4", "call5", "call6",
+                    "call7"
+                }
+            }
+        },
+        events = {
+            on_player_armor_inventory_changed__removed = "quack",
+            on_player_armor_inventory_changed__equipped = "quack",
+            on_player_ammo_inventory_changed__empty = "quack",
+            on_player_ammo_inventory_changed__full = "quack",
+            on_player_gun_inventory_changed__equipped = "quack",
+            on_player_damaged__hp_critical = "quack",
+            on_player_damaged__hp_low = "quack",
+            on_player_damaged__hit = "quack",
+            on_player_died = "quack",
+            on_player_respawned = "quack",
+            on_player_driving_changed_state = "quack",
+            on_research_finished = "call",
+            on_research_started = "call",
+            on_rocket_launch_ordered = "call",
+            on_player_joined_game = "call",
+            on_military_target_killed = "quack"
+        }
+    },
     motivational_speaker = {
         sounds = {
             about_to_die = {},
