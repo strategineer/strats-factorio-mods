@@ -3,12 +3,12 @@ require("__strats-voicepacks-base__.helpers")
 local vn = "gordon_freeman"
 
 data:extend{
-    setting_sound(vn, "acquired"), setting_sound(vn, "activated"),
-    setting_sound(vn, "alert"), setting_sound(vn, "ammo_depleted"),
-    setting_sound(vn, "ammo_pickup"), setting_sound(vn, "armor_gone"),
-    setting_sound(vn, "beep"), setting_sound(vn, "bell"),
-    setting_sound(vn, "biohazard_detected"), setting_sound(vn, "blip"),
-    setting_sound(vn, "boop"),
+    setting_volume(vn, 3.0), setting_sound(vn, "acquired"),
+    setting_sound(vn, "activated"), setting_sound(vn, "alert"),
+    setting_sound(vn, "ammo_depleted"), setting_sound(vn, "ammo_pickup"),
+    setting_sound(vn, "armor_gone"), setting_sound(vn, "beep"),
+    setting_sound(vn, "bell"), setting_sound(vn, "biohazard_detected"),
+    setting_sound(vn, "blip"), setting_sound(vn, "boop"),
     setting_sounds(vn, "breathe", "breathe1,breathe2"),
     setting_sound(vn, "buzz"), setting_sound(vn, "danger"),
     setting_sound(vn, "evacuate_area"), setting_sound(vn, "flatline"),

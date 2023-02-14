@@ -3,7 +3,8 @@ require("__strats-voicepacks-base__.helpers")
 local vn = "motivational_speaker"
 
 data:extend{
-    setting_sound(vn, "about_to_die"), setting_sound(vn, "ammo_wont_help"),
+    setting_volume(vn, 3.0), setting_sound(vn, "about_to_die"),
+    setting_sound(vn, "ammo_wont_help"),
     setting_sound(vn, "bugs_arent_going_to"),
     setting_sound(vn, "correct_ratio_of_steam_engines"),
     setting_sounds(vn, "die", "die,please_die,kill_these_bugs_please"),

@@ -6,8 +6,6 @@ local STRATS_VOICEPACKS_PACK_SETTING_PREFIX = "strats-voicepacks-pack-"
 local STRATS_VOICEPACKS_MOD_NAME = "strats-voicepacks-base"
 -- todo make code much more robust
 -- todo allow non ogg formats
--- todo allow each mod to set their own volume
-local VOLUME = 3
 
 function debug_log(s) if DEBUG then log(s) end end
 function debug_print(s)
@@ -49,10 +47,11 @@ function build_voices()
             local setting_type = parts[2]
             -- name of sound or name of event
             local setting_value = parts[3]
-            -- todo v should contain the path to a soundfile or a comma seperated list of soundfiles
             debug_log("voice_name: " .. voice_name)
             debug_log("setting_type: " .. setting_type)
-            debug_log("setting_value: " .. setting_value)
+            if setting_value ~= nil then
+                debug_log("setting_value: " .. setting_value)
+            end
             local v_to_set = v.default_value or v.value
             local prob = nil
             if setting_type == "events" then
@@ -66,18 +65,14 @@ function build_voices()
                     debug_log("... found probability: " .. prob)
                 end
                 debug_log("... setting: " .. v_to_set)
-            else
-                if setting_type == "sounds" then
-                    if string.find(v_to_set, ",") then
-                        debug_log("... setting variations: " .. v_to_set)
-                        local sounds = split(v_to_set, ",")
-                        v_to_set = {variations = sounds}
-                    else
-                        debug_log("... setting: " .. v_to_set)
-                    end
+            end
+            if setting_type == "sounds" then
+                if string.find(v_to_set, ",") then
+                    debug_log("... setting variations: " .. v_to_set)
+                    local sounds = split(v_to_set, ",")
+                    v_to_set = {variations = sounds}
                 else
-                    log("UNEXPECTED ERROR")
-                    goto continue_setup
+                    debug_log("... setting: " .. v_to_set)
                 end
             end
             if prob ~= nil then
@@ -90,12 +85,16 @@ function build_voices()
                 if voices[voice_name][setting_type] == nil then
                     voices[voice_name][setting_type] = {}
                 end
-                if setting_type ~= "events" then
+                if setting_type == "sounds" then
                     voices[voice_name][setting_type][setting_value] = v_to_set
-                else
+                end
+                if setting_type == 'events' then
                     local d = {sound = v_to_set, probability = prob}
                     debug_print("... DEBUG" .. serpent.block(d))
                     voices[voice_name][setting_type][setting_value] = d
+                end
+                if setting_type == "volume" then
+                    voices[voice_name][setting_type] = v_to_set
                 end
             end
             ::continue_setup::
@@ -131,28 +130,36 @@ function sound_prototype_key(voice, name)
     return STRATS_VOICEPACKS_PACK_SETTING_PREFIX .. voice .. '.' .. name
 end
 
-function create_sound_prototype(voice, name)
-    return {
+function create_sound_prototype(voice, name, volume)
+    d = {
         type = 'sound',
         name = sound_prototype_key(voice, name),
         filename = sound_filepath(voice, name),
         category = "gui-effect",
-        volume = VOLUME
+        volume = volume
     }
+    debug_log(serpent.block(d))
+    return d
 end
 
-function create_sound_prototype_with_variations(voice, name, variations)
+function create_sound_prototype_with_variations(voice, name, variations, volume)
+
+    debug_log(
+        "create_sound_prototype_with_variations: " .. voice .. ":" .. name ..
+            ":" .. volume)
     variations_data = {}
     for i, v in pairs(variations) do
         table.insert(variations_data,
-                     {volume = VOLUME, filename = sound_filepath(voice, v)})
+                     {volume = volume, filename = sound_filepath(voice, v)})
     end
-    return {
+    d = {
         type = 'sound',
         name = sound_prototype_key(voice, name),
         variations = variations_data,
         category = "gui-effect"
     }
+    debug_log(serpent.block(d))
+    return d
 end
 
 VOICES = build_voices()

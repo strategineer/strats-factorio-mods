@@ -6,7 +6,7 @@ global.tick_died_on = 0
 global.player_index_who_respawned = 0
 global.tick_respawned_on = 0
 
-function try_play_sound(voice, name, position, player)
+local function try_play_sound(voice, name, position, player)
     local k = sound_prototype_key(voice, name)
     debug_print("trying to play sound: " .. k)
     if game.is_valid_sound_path(k) then
@@ -22,7 +22,7 @@ function try_play_sound(voice, name, position, player)
     end
 end
 
-function try_play_event_voice(voice, event_name, position, player)
+local function try_play_event_voice(voice, event_name, position, player)
     debug_print("Trying to play sound for voice: " .. voice .. " for event " ..
                     event_name)
     if voice == nil then
@@ -52,12 +52,12 @@ function try_play_event_voice(voice, event_name, position, player)
     end
 end
 
-function try_play_event_voice_announcer(event_name)
+local function try_play_event_voice_announcer(event_name)
     voice = global_config('announcer')
     if voice then try_play_event_voice(voice, event_name) end
 end
 
-function try_play_event_voice_for_player(player, event_name)
+local function try_play_event_voice_for_player(player, event_name)
     if player == nil then return end
     voice = player_config(player.index, 'voice')
     for i, other_p in pairs(game.players) do

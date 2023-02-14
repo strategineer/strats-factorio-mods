@@ -3,10 +3,11 @@ require("__strats-voicepacks-base__.helpers")
 local vn = "arnold"
 
 data:extend{
-    setting_sound(vn, "affirmative"), setting_sound(vn, "as_satisfying_as"),
-    setting_sound(vn, "chill_out"), setting_sound(vn, "cool"),
-    setting_sound(vn, "deep_trouble"), setting_sound(vn, "get_down"),
-    setting_sound(vn, "get_to_da_choppa"), setting_sound(vn, "good_guys"),
+    setting_volume(vn, 3.0), setting_sound(vn, "affirmative"),
+    setting_sound(vn, "as_satisfying_as"), setting_sound(vn, "chill_out"),
+    setting_sound(vn, "cool"), setting_sound(vn, "deep_trouble"),
+    setting_sound(vn, "get_down"), setting_sound(vn, "get_to_da_choppa"),
+    setting_sound(vn, "good_guys"),
     setting_sound(vn, "grant_me_revenge_the_hell_with_you"),
     setting_sound(vn, "green_berret_for_breakfast"),
     setting_sound(vn, "hasta_la_vista"), setting_sound(vn, "hi"),

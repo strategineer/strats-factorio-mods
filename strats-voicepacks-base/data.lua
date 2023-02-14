@@ -5,6 +5,8 @@ local speaker = data.raw["programmable-speaker"]["programmable-speaker"]
 for voice, voice_data in pairs(VOICES) do
     for k, v in pairs(voice_data) do
         if k ~= 'sounds' then goto continue end
+        volume = voice_data["volume"] or 1.0
+        debug_log("... volume: " .. volume)
         notes = {}
         for bark_name, extra in pairs(v) do
             log("Setting up voices: " .. voice .. ":" .. bark_name)
@@ -18,14 +20,14 @@ for voice, voice_data in pairs(VOICES) do
                 end
                 data:extend({
                     create_sound_prototype_with_variations(voice, bark_name,
-                                                           variations)
+                                                           variations, volume)
                 })
             else
                 table.insert(notes, {
                     name = bark_name,
                     sound = {filename = sound_filepath(voice, bark_name)}
                 })
-                data:extend({create_sound_prototype(voice, bark_name)})
+                data:extend({create_sound_prototype(voice, bark_name, volume)})
             end
         end
         speaker.instruments[#speaker.instruments + 1] = {

@@ -2,13 +2,13 @@ require('defines')
 
 local voicepack_names = {''}
 local default_voice_pack = ''
+
 for k, v in pairs(VOICES) do
     log("voice_pack name: " .. k)
     table.insert(voicepack_names, k)
     default_voice_pack = k
 end
 
--- todo call build_voices here and get all the keys
 data:extend{
     {
         name = config_key('announcer'),

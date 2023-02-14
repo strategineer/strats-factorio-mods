@@ -3,6 +3,7 @@ require("__strats-voicepacks-base__.helpers")
 local vn = "duck"
 
 data:extend{
+    setting_volume(vn, 2),
     setting_sounds(vn, "quack",
                    "quack1,quack2,quack3,quack4,quack5,quack6,quack7"),
     setting_sounds(vn, "call", "call1,call2,call3,call4,call5,call6,call7"),
