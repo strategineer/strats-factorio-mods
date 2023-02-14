@@ -1,3 +1,8 @@
+
+*.zip
+mod-list.json
+mod-settings.dat
+
 # Compiled Lua sources
 luac.out
 
