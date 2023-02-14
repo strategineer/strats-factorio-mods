@@ -14,25 +14,42 @@ Refer to [my Arnold voice pack](https://github.com/strategineer/strats-factorio/
 
 ### Events 
 
-on_military_target_killed
-: FILL THIS IN
+**on_military_target_killed**: Triggered when the player kills a military target (enemy unit, spawner, etc.) on foot or in a vehicle. 
 
-on_player_ammo_inventory_changed__empty
-on_player_ammo_inventory_changed__full
-on_player_armor_inventory_changed__equipped
-on_player_armor_inventory_changed__removed
-on_player_damaged__hit
-on_player_damaged__hp_critical
-on_player_damaged__hp_low
-on_player_died
-on_player_driving_changed_state__enter
-on_player_driving_changed_state__exit
-on_player_gun_inventory_changed__equipped
-on_player_joined_game
-on_player_respawned
-on_research_finished
-on_research_started
-on_rocket_launch_ordered
+**on_player_ammo_inventory_changed__empty**: Triggered when the player's equipped gun has no more ammo. 
+
+**on_player_ammo_inventory_changed__full**: Triggered when the player's equipped gun has a full stack of ammo.
+
+**on_player_armor_inventory_changed__equipped**: Triggered when the player puts on armor or changes their armor.
+
+**on_player_armor_inventory_changed__removed**: Triggered when the player takes off their armor or their armor is destroyed.
+
+**on_player_damaged__hit**: Triggered when the player is damaged.
+**on_player_damaged__hp_critical**: Triggered when the player reaches critical HP (less than 25%).
+
+**on_player_damaged__hp_low**: Triggered when the player reaches low HP (less than 50%).
+
+**on_player_died**: Triggered when the player dies.
+
+**on_player_driving_changed_state__enter**: Triggered when the player enters a vehicle.
+
+**on_player_driving_changed_state__exit**: Triggered when the player exits a vehicle.
+
+**on_player_gun_inventory_changed__equipped**: Triggered when the player equips a different gun.
+
+**on_player_gun_inventory_changed__none_equipped**: Triggered when the player unequips their equipped gun.
+
+**on_player_gun_inventory_changed**: Triggered when the player's equipped gun changes.
+
+**on_player_joined_game**: Triggered when the player joins the game (only works in multiplayer).
+
+**on_player_respawned**: Triggered when the player respawns.
+
+**on_research_finished**: Triggered when the selected research item completes (plays for all players, think of this like an announcer).
+
+**on_research_started**: Triggered when a research item is started (plays for all players, think of this like an announcer).
+
+**on_rocket_launch_ordered__riding**: Triggered when the player is riding the rocket when it's being launched.
 
 
 ### Limitations
