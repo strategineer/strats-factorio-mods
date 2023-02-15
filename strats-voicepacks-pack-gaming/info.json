@@ -1,0 +1,12 @@
+{
+    "name": "strats-voicepacks-pack-gaming",
+    "version": "0.1.0",
+    "title": "Strat's Voicepacks - Gaming",
+    "author": "strategineer",
+    "factorio_version": "1.1",
+    "dependencies": [
+        "base >= 1.1",
+        "strats-voicepacks-base >= 0.1.0"
+    ],
+    "description": "Gaming related voicepacks (Gamer + Gordon Freeman) for Strat's Voicepacks mod."
+}

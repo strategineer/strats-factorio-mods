@@ -7,7 +7,7 @@ global.player_index_who_respawned = 0
 global.tick_respawned_on = 0
 
 local function try_play_sound(voice, name, position, player)
-    local k = sound_prototype_key(voice, name)
+    local k = sound_prototype_key(VOICES[voice]["pack"], voice, name)
     debug_print("trying to play sound: " .. k)
     if game.is_valid_sound_path(k) then
         debug_print("playing sound: " .. k)

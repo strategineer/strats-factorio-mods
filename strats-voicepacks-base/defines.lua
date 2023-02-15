@@ -1,4 +1,4 @@
-local DEBUG = false
+local DEBUG = true
 
 local ESCAPED_STRATS_VOICEPACKS_PACK_SETTING_PREFIX =
     "strats%-voicepacks%-pack%-"
@@ -35,18 +35,19 @@ function build_voices()
         our_settings = settings.startup
     end
     for k, v in pairs(our_settings) do
-        -- todo how to allow more than one voice pack per mod
         i, j = string.find(k, ESCAPED_STRATS_VOICEPACKS_PACK_SETTING_PREFIX)
         if j ~= nil then
             log("handling setting: " .. k)
             local tail = string.sub(k, j + 1)
             log("tail is: " .. tail)
             local parts = split(tail, ":")
-            local voice_name = parts[1]
+            local pack = parts[1]
+            local voice_name = parts[2]
             -- todo expect sounds or events, log if wrong
-            local setting_type = parts[2]
+            local setting_type = parts[3]
             -- name of sound or name of event
-            local setting_value = parts[3]
+            local setting_value = parts[4]
+            debug_log("pack: " .. pack)
             debug_log("voice_name: " .. voice_name)
             debug_log("setting_type: " .. setting_type)
             if setting_value ~= nil then
@@ -85,6 +86,7 @@ function build_voices()
                 if voices[voice_name][setting_type] == nil then
                     voices[voice_name][setting_type] = {}
                 end
+                voices[voice_name]["pack"] = pack
                 if setting_type == "sounds" then
                     voices[voice_name][setting_type][setting_value] = v_to_set
                 end
@@ -120,21 +122,23 @@ function player_config(player_index, name)
     return settings.get_player_settings(player_index)[k].value
 end
 
-function sound_filepath(voice, name)
+function sound_filepath(pack, voice, name)
     return
-        '__' .. STRATS_VOICEPACKS_PACK_SETTING_PREFIX .. voice .. '__/sound/' ..
+        '__' .. STRATS_VOICEPACKS_PACK_SETTING_PREFIX .. pack .. '__/sound/' ..
             voice .. '/' .. name .. ".ogg"
 end
 
-function sound_prototype_key(voice, name)
-    return STRATS_VOICEPACKS_PACK_SETTING_PREFIX .. voice .. '.' .. name
+function sound_prototype_key(pack, voice, name)
+    return
+        STRATS_VOICEPACKS_PACK_SETTING_PREFIX .. pack .. '.' .. voice .. '.' ..
+            name
 end
 
-function create_sound_prototype(voice, name, volume)
+function create_sound_prototype(pack, voice, name, volume)
     d = {
         type = 'sound',
-        name = sound_prototype_key(voice, name),
-        filename = sound_filepath(voice, name),
+        name = sound_prototype_key(pack, voice, name),
+        filename = sound_filepath(pack, voice, name),
         category = "gui-effect",
         volume = volume
     }
@@ -142,19 +146,22 @@ function create_sound_prototype(voice, name, volume)
     return d
 end
 
-function create_sound_prototype_with_variations(voice, name, variations, volume)
+function create_sound_prototype_with_variations(pack, voice, name, variations,
+                                                volume)
 
     debug_log(
         "create_sound_prototype_with_variations: " .. voice .. ":" .. name ..
             ":" .. volume)
     variations_data = {}
     for i, v in pairs(variations) do
-        table.insert(variations_data,
-                     {volume = volume, filename = sound_filepath(voice, v)})
+        table.insert(variations_data, {
+            volume = volume,
+            filename = sound_filepath(pack, voice, v)
+        })
     end
     d = {
         type = 'sound',
-        name = sound_prototype_key(voice, name),
+        name = sound_prototype_key(pack, voice, name),
         variations = variations_data,
         category = "gui-effect"
     }
