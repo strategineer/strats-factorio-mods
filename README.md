@@ -2,4 +2,4 @@
 
 ## Strats Voicepacks Mod
 
-[README](https://github.com/strategineer/strats-factorio-mods/blob/main/strats-voicepacks-base/README.md)
+[README](https://github.com/strategineer/strats-factorio-mods/tree/main/strats-voicepacks-base)
