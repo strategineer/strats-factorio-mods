@@ -1,4 +1,4 @@
-local DEBUG = true
+local DEBUG = false
 
 local ESCAPED_STRATS_VOICEPACKS_PACK_SETTING_PREFIX =
     "strats%-voicepacks%-pack%-"
