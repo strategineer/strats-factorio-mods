@@ -2,13 +2,11 @@
 
 **This mod is in an alpha state and might be unstable, you have been warned.**
 
-This mod gives your normally silent player character a voice, allowing them to verbally react to your actions and whatever is happening to them (being eaten alive by bugs for example).
+This mod gives your normally silent player character a voice, allowing them to verbally react to your actions and whatever is happening to them (being eaten alive by bugs for example). This works in multiplayer as well, and each player can use their own voice pack.
 
-This mod *should* work in singleplayer and multiplayer although I've done most of my testing so far in singleplayer (I'm hoping to rectify that very soon).
+I've created a few example voicepacks that you can use and I've made it as easy as possible for you to create your own voicepacks.
 
-I've created a few voicepacks that you can use and I've made it as easy as possible for you to create your own voicepacks if you'd like to get creative and, possibly, surprise your friends with some funny voices.
-
-Refer to [my Arnold voice pack](https://github.com/strategineer/strats-factorio/tree/main/strats-voicepacks-pack-arnold) as an example you can clone to make your own
+Refer to [my Arnold voice pack](https://github.com/strategineer/strats-factorio/tree/main/strats-voicepacks-pack-arnold) as an example you can clone to make your own.
 
 ## Events 
 
