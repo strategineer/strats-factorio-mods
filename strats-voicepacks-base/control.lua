@@ -135,6 +135,52 @@ script.on_event(defines.events.on_player_joined_game, function(event)
     try_play_event_voice_for_player(player, "on_player_joined_game")
 end)
 
+script.on_event(defines.events.on_built_entity, function(event)
+    local player = game.get_player(event.player_index)
+    try_play_event_voice_for_player(player, "on_built_entity")
+    try_play_event_voice_for_player(player,
+                                    "on_built_entity_" .. event.item.name)
+    try_play_event_voice_for_player(player,
+                                    "on_built_entity_" .. event.item.type)
+end)
+
+script.on_event(defines.events.on_player_mined_entity, function(event)
+    local player = game.get_player(event.player_index)
+    try_play_event_voice_for_player(player, "on_player_mined_entity")
+
+    try_play_event_voice_for_player(player, "on_player_mined_entity_" ..
+                                        event.entity.name)
+    try_play_event_voice_for_player(player, "on_player_mined_entity_" ..
+                                        event.entity.type)
+end)
+
+script.on_event(defines.events.on_player_mined_item, function(event)
+    local player = game.get_player(event.player_index)
+    try_play_event_voice_for_player(player, "on_player_mined_item")
+    try_play_event_voice_for_player(player, "on_player_mined_item_" ..
+                                        event.item_stack.name)
+end)
+
+script.on_event(defines.events.on_player_placed_equipment, function(event)
+    local player = game.get_player(event.player_index)
+    try_play_event_voice_for_player(player, "on_player_placed_equipment")
+    try_play_event_voice_for_player(player, "on_player_placed_equipment_" ..
+                                        event.equipment.name)
+    try_play_event_voice_for_player(player, "on_player_placed_equipment_" ..
+                                        event.equipment.type)
+end)
+
+script.on_event(defines.events.on_player_removed_equipment, function(event)
+    local player = game.get_player(event.player_index)
+    try_play_event_voice_for_player(player, "on_player_removed_equipment")
+    try_play_event_voice_for_player(player, "on_player_removed_equipment_" ..
+                                        event.equipment)
+end)
+script.on_event(defines.events.on_player_repaired_entity, function(event)
+    local player = game.get_player(event.player_index)
+    try_play_event_voice_for_player(player, "on_player_repaired_entity")
+end)
+
 script.on_event(defines.events.on_entity_damaged, function(event)
     local player = game.get_player(event.entity.player.index)
     local max_health = event.entity.prototype.max_health

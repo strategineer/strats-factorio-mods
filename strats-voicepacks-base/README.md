@@ -12,6 +12,18 @@ Refer to [my Arnold voice pack](https://github.com/strategineer/strats-factorio/
 
 ## Events 
 
+**on_built_entity/on_built_entity_{TYPE|NAME}**: Triggered when the player builds something.
+
+**on_player_mined_entity/on_player_mined_entity_{TYPE|NAME}**: Triggered when the player mines an entity.
+
+**on_player_mined_item/on_player_mined_item_{NAME}**: Triggered when the player mines an item.
+
+**on_player_placed_equipment/on_player_placed_equipment_{TYPE|NAME}**: Triggered when the player places equipment into an equipment grid.
+
+**on_player_removed_equipment/on_player_removed_equipment_{NAME}**: Triggered when the player removes equipment from an equpment grid.
+
+**on_player_repaired_entity**: Triggered when the player repairs an entity.
+
 **on_military_target_killed**: Triggered when the player kills a military target (enemy unit, spawner, etc.) on foot or in a vehicle. 
 
 **on_player_ammo_inventory_changed__empty**: Triggered when the player's equipped gun has no more ammo. 

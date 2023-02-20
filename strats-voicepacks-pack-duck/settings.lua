@@ -24,5 +24,11 @@ data:extend{
     setting_event(pack, vn, "on_research_started", "call"),
     setting_event(pack, vn, "on_rocket_launch_ordered__riding", "call"),
     setting_event(pack, vn, "on_player_joined_game", "call"),
-    setting_event(pack, vn, "on_military_target_killed", "quack", 0.4)
+    setting_event(pack, vn, "on_military_target_killed", "quack", 0.4),
+    setting_event(pack, vn, "on_built_entity", "quack", 0.25),
+    setting_event(pack, vn, "on_player_mined_entity", "quack"),
+    setting_event(pack, vn, "on_player_mined_item", "quack", 0.25),
+    setting_event(pack, vn, "on_player_placed_equipment", "quack"),
+    setting_event(pack, vn, "on_player_removed_equipment", "quack"),
+    setting_event(pack, vn, "on_player_repaired_entity", "quack")
 }
