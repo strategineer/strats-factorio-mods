@@ -1,3 +1,6 @@
+0.2.1
+- Fix nil exception error relating to newly added events in 0.2.0 (Sorry!)
+
 0.2.0
 - Add events:
     - on_built_entity/on_built_entity_{ENTITY_TYPE|ENTITY_NAME}

@@ -138,43 +138,53 @@ end)
 script.on_event(defines.events.on_built_entity, function(event)
     local player = game.get_player(event.player_index)
     try_play_event_voice_for_player(player, "on_built_entity")
-    try_play_event_voice_for_player(player,
-                                    "on_built_entity_" .. event.item.name)
-    try_play_event_voice_for_player(player,
-                                    "on_built_entity_" .. event.item.type)
+    if event.item ~= nil then
+        try_play_event_voice_for_player(player,
+                                        "on_built_entity_" .. event.item.name)
+        try_play_event_voice_for_player(player,
+                                        "on_built_entity_" .. event.item.type)
+    end
 end)
 
 script.on_event(defines.events.on_player_mined_entity, function(event)
     local player = game.get_player(event.player_index)
     try_play_event_voice_for_player(player, "on_player_mined_entity")
-
-    try_play_event_voice_for_player(player, "on_player_mined_entity_" ..
-                                        event.entity.name)
-    try_play_event_voice_for_player(player, "on_player_mined_entity_" ..
-                                        event.entity.type)
+    if event.entity ~= nil then
+        try_play_event_voice_for_player(player, "on_player_mined_entity_" ..
+                                            event.entity.name)
+        try_play_event_voice_for_player(player, "on_player_mined_entity_" ..
+                                            event.entity.type)
+    end
 end)
 
 script.on_event(defines.events.on_player_mined_item, function(event)
     local player = game.get_player(event.player_index)
     try_play_event_voice_for_player(player, "on_player_mined_item")
-    try_play_event_voice_for_player(player, "on_player_mined_item_" ..
-                                        event.item_stack.name)
+    if event.item_stack ~= nil then
+        try_play_event_voice_for_player(player, "on_player_mined_item_" ..
+                                            event.item_stack.name)
+    end
 end)
 
 script.on_event(defines.events.on_player_placed_equipment, function(event)
     local player = game.get_player(event.player_index)
     try_play_event_voice_for_player(player, "on_player_placed_equipment")
-    try_play_event_voice_for_player(player, "on_player_placed_equipment_" ..
-                                        event.equipment.name)
-    try_play_event_voice_for_player(player, "on_player_placed_equipment_" ..
-                                        event.equipment.type)
+    if event.equipment ~= nil then
+        try_play_event_voice_for_player(player, "on_player_placed_equipment_" ..
+                                            event.equipment.name)
+        try_play_event_voice_for_player(player, "on_player_placed_equipment_" ..
+                                            event.equipment.type)
+    end
 end)
 
 script.on_event(defines.events.on_player_removed_equipment, function(event)
     local player = game.get_player(event.player_index)
     try_play_event_voice_for_player(player, "on_player_removed_equipment")
-    try_play_event_voice_for_player(player, "on_player_removed_equipment_" ..
-                                        event.equipment)
+    if event.equipment ~= nil then
+        try_play_event_voice_for_player(player,
+                                        "on_player_removed_equipment_" ..
+                                            event.equipment)
+    end
 end)
 script.on_event(defines.events.on_player_repaired_entity, function(event)
     local player = game.get_player(event.player_index)
